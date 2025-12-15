@@ -248,14 +248,14 @@ try:
     from django.db.backends.sqlite3.base import Database
     Database.register_adapter(Bit, lambda x: int(x))
     Database.register_adapter(BitHandler, lambda x: int(x))
-except ImproperlyConfigured:
+except (ImproperlyConfigured, AttributeError):
     pass
 
 try:
     from django.db.backends.postgresql.base import Database
     Database.extensions.register_adapter(Bit, lambda x: Database.extensions.AsIs(int(x)))
     Database.extensions.register_adapter(BitHandler, lambda x: Database.extensions.AsIs(int(x)))
-except ImproperlyConfigured:
+except (ImproperlyConfigured, AttributeError):
     pass
 
 # psycopg3 adapter registration: register a dumper that
